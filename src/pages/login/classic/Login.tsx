@@ -21,11 +21,11 @@ const Login = () => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    if (!values.username) {
+    if (!values?.username) {
       alert('아이디를 입력해주세요');
       idInput.current?.focus();
     }
-    if (!values.password) {
+    if (!values?.password) {
       alert('비밀번호를 입력해주세요');
       passwordInput.current?.focus();
     } else {
@@ -44,7 +44,7 @@ const Login = () => {
             title='id'
             type='text'
             name='username'
-            value={values.username}
+            value={values?.username}
             onChange={handleChange}
             placeholder='아이디를 입력하세요.'
             ref={idInput}
@@ -54,7 +54,7 @@ const Login = () => {
             title='password'
             type='password'
             name='password'
-            value={values.password}
+            value={values?.password}
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordInput}

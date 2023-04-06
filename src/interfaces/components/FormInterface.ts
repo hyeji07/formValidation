@@ -20,7 +20,11 @@ export namespace FormInterface {
     InputTitle?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     className?: string;
-    helperText?: string;
+    maxValue?: number;
+    regexCheck: any; //임시
+    defaultText: string;
+    successText: string;
+    errorText: string;
   }
 
   export interface TextAreaInterface {

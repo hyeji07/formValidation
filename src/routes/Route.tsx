@@ -4,7 +4,7 @@ import Home from '@pages/Home';
 import SignUp from '@pages/login/SignUp';
 import '@styles/global.scss';
 import Login from '@pages/login/classic/Login';
-import LoginOnchangeRegex from '@pages/login/classic/LoginOnchangeRegex';
+import LoginOnchangeRegex from '@pages/login/onchangeRegex/LoginOnchangeRegex';
 
 export default function AppRoute(): JSX.Element {
   return (

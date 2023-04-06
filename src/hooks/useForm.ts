@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 
 import { HooksInterface } from '@interfaces/HooksInterface';
 
-export function useForm(initialValues: HooksInterface.UseFormInterface) {
+//initialValues? :정규식사용하면서 기존값안보내서 ?붙임
+export function useForm(initialValues?: HooksInterface.UseFormInterface) {
   const [values, setValues] = useState(initialValues);
 
   const handleChange = (

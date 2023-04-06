@@ -25,16 +25,16 @@ const SignUp = () => {
     e.preventDefault();
 
     const body = {
-      name: values.name,
-      username: values.username,
-      password: values.password,
+      name: values?.name,
+      username: values?.username,
+      password: values?.password,
     };
 
     if (
-      !values.name ||
-      !values.username ||
-      !values.password ||
-      !values.passwordCheck
+      !values?.name ||
+      !values?.username ||
+      !values?.password ||
+      !values?.passwordCheck
     ) {
       alert('가입 정보를 확인해주세요.');
     } else if (
@@ -65,7 +65,7 @@ const SignUp = () => {
             title='name'
             type='text'
             name='name'
-            value={values.name}
+            value={values?.name}
             onChange={handleChange}
             placeholder='이름을 입력하세요.'
             ref={nameSignInUpInput}
@@ -75,7 +75,7 @@ const SignUp = () => {
             title='id'
             type='text'
             name='username'
-            value={values.username}
+            value={values?.username}
             onChange={handleChange}
             placeholder='아이디를 입력하세요.'
             ref={idSignInUpInput}
@@ -85,7 +85,7 @@ const SignUp = () => {
             title='password'
             type='password'
             name='password'
-            value={values.password}
+            value={values?.password}
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordSignInUpInput}
@@ -95,7 +95,7 @@ const SignUp = () => {
             title='password 재확인'
             type='password'
             name='passwordCheck'
-            value={values.passwordCheck}
+            value={values?.passwordCheck}
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordCheckSignInUpInput}
