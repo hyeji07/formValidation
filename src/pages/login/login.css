@@ -1,0 +1,39 @@
+.loginContainer .loginTitle {
+  text-align: center;
+  margin-bottom: 4rem;
+  color: #524f4f;
+  font-size: 3rem;
+}
+.loginContainer .loginInput {
+  width: 100%;
+  margin: 1rem 0 3rem 0;
+  line-height: 3rem;
+  border: 1px solid #ccc;
+}
+.loginContainer .loginBtn {
+  display: flex;
+  justify-content: center;
+}
+.loginContainer .loginBtn .blueSubmitBtn {
+  height: 5rem;
+  width: 13rem;
+  background: #1c71c0;
+  border-radius: 4px;
+  color: #fff;
+  margin-top: 2rem;
+}
+.loginContainer .loginBtn .blueSubmitBtn:hover {
+  background: #122d45;
+  color: #fff;
+  transition: 0.4s;
+}
+.loginContainer .signUpTxt {
+  font-size: 1.4rem;
+  text-align: right;
+  margin-top: 2rem;
+  color: #0b4988;
+  cursor: pointer;
+}
+.loginContainer .signUpTxt:hover {
+  text-decoration: underline;
+}
