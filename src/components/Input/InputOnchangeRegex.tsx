@@ -49,8 +49,8 @@ export default forwardRef(function InputOnchangeRegex(
 
     //공백인 경우 defaultText로 바꾼다.
     if (e.target.value === '') {
-      //setIsError(null);
-      return setHelperText(defaultText);
+      setIsError('err');
+      return setHelperText(errorText);
     }
 
     if (regexCheck) {

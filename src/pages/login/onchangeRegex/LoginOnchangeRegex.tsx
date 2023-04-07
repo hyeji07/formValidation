@@ -96,11 +96,13 @@ const LoginOnchangeRegex = () => {
             onChange={handleChangeTarget}
             labelClassName='label'
             className='input'
-            maxValue={10}
+            maxValue={16}
             regexCheck={regex.password}
-            defaultText={'비밀번호를 입력하세요.'}
+            defaultText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
             successText={'성공'}
-            errorText={'한글 3글자 이상'}
+            errorText={
+              '8~16자 영문 대 소문자, 숫자, 특수문자를 사용했는지 확인해주세요.'
+            }
             helperTextClassName='helperText'
           />
           <div className='submitBtn'>
