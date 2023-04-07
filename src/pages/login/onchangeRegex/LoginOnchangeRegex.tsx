@@ -29,11 +29,13 @@ const LoginOnchangeRegex = () => {
     console.log(e); */
 
   const idInput = useRef<HTMLInputElement>(null);
+  const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
     username: '',
+    email: '',
     password: '',
   });
 
@@ -66,6 +68,22 @@ const LoginOnchangeRegex = () => {
             defaultText={'이름은 한글로 3자~10자 이하로 입력해주세요.'}
             successText={'성공'}
             errorText={'한글로 3자~10자 이하로 입력했는지 확인해주세요.'}
+            helperTextClassName='helperText'
+          />
+          <InputOnchangeRegex
+            title='email'
+            type='input'
+            name='email'
+            value={values?.email}
+            placeholder='이메일을 입력하세요.'
+            ref={emailInput}
+            onChange={handleChangeTarget}
+            labelClassName='label'
+            className='input'
+            regexCheck={regex.email}
+            defaultText={'이메일을 입력하세요.'}
+            successText={'성공'}
+            errorText={'이메일을 정확하게 작성했는지 확인해주세요.'}
             helperTextClassName='helperText'
           />
           <InputOnchangeRegex
