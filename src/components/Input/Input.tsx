@@ -4,7 +4,7 @@ import { FormInterface } from '@interfaces/components/FormInterface';
 
 import styled from '@emotion/styled';
 
-const InputBox = styled.input(`&:focus{border:1px solid red;}`);
+const InputBox = styled.input(`&:focus{border:1px solid #fd9797;}`);
 
 export default forwardRef(function Input(
   {

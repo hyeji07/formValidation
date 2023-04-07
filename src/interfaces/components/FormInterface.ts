@@ -14,17 +14,20 @@ export namespace FormInterface {
   export interface InputRegexInterface {
     title: string;
     type: string;
-    value: string | number | undefined;
     name: string;
+    value: string | number | undefined;
     placeholder: string;
     InputTitle?: string;
     onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    labelClassName: string;
     className?: string;
     maxValue?: number;
-    regexCheck: any; //임시
+    regexCheck: RegExp; //정규식은 RegExp 타입
     defaultText: string;
     successText: string;
     errorText: string;
+    helperTextClassName?: string;
+    onInput?: any;
   }
 
   export interface TextAreaInterface {

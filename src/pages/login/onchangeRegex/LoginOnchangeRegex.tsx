@@ -1,4 +1,8 @@
-// classic : 없을시 focus
+//onChange 작성하는 동안 유효성검사를 하는 컴포넌트(API 통신 전)
+//1.글자수 제한
+//2.한글인지 체크
+//3.조건에 충족한 성공은 해당 스타일 적용(+아래 Text출력)
+//3.Err일 경우에는 해당 스타일 적용(+아래 Text출력)
 
 import { FormEvent, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -6,35 +10,12 @@ import { Link } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
 
-import InputLoginOnchangeRegex from '@components/Input/InputLoginOnchangeRegex';
+import InputOnchangeRegex from '@components/input/InputOnchangeRegex';
 import regex from './regex';
 
 import '../login.scss';
 
 const LoginOnchangeRegex = () => {
-  /*  const { values } = useForm({
-    username: '',
-    password: '',
-  }); */
-
-  const idInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
-
-  /*  for (const [key, value] of Object.entries(values)) {
-    console.log(`${key}: ${value}`);
-
-    const length = value?.length;
-  } */
-
-  /*   console.log(targetValue); */
-
-  //console.log(values.username);
-
-  /*   const [helperText, setHelperText] = useState(defaultText); */
-
-  //const handleOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-  /*   e.preventDefault(); */
-
   /*    if (!values.username) {
       alert('아이디를 입력해주세요');
       idInput.current?.focus();
@@ -45,60 +26,66 @@ const LoginOnchangeRegex = () => {
     } else {
       alert('로그인에 실패했습니다.');
     }
-
     console.log(e); */
 
-  //최대값이 지정되어있는 경우 바로 無 return을 하여 value를 저장하지 않는다.
-  /*   if (maxValue && maxValue < e.target.value.length) return; */
-  //  console.log();
-  //};
+  const idInput = useRef<HTMLInputElement>(null);
+  const passwordInput = useRef<HTMLInputElement>(null);
 
+  //Input Value 실시간 반영
   const { values, handleChange } = useForm({
     username: '',
     password: '',
   });
-  /*  console.log(values); */
 
-  const handlerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
+  const handleChangeTarget = (
+    e:
+      | React.ChangeEvent<HTMLInputElement>
+      | React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     handleChange(e);
   };
 
   return (
-    <div className='loginContainer'>
-      <h3 className='loginTitle'> Login </h3>
-      <div className='loginBox'>
+    <div className='formContainer'>
+      <h3 className='formTitle'> </h3>
+      <div className='formBox'>
         <form /* onSubmit={handleOnChange} */>
-          <InputLoginOnchangeRegex
+          <InputOnchangeRegex
             title='id'
             type='text'
             name='username'
             value={values?.username}
-            placeholder='아이디를 입력하세요.'
+            placeholder='이름을 입력하세요.'
             ref={idInput}
-            className='loginInput'
-            onChange={handlerChange}
+            className='input'
+            labelClassName='label'
+            onChange={handleChangeTarget}
             regexCheck={regex.nickname}
             maxValue={10}
-            defaultText={'아이디를 입력하세요.'}
+            defaultText={'이름은 한글로 3자~10자 이하로 입력해주세요.'}
             successText={'성공'}
-            errorText={'한글 3글자 이상'}
+            errorText={'한글로 3자~10자 이하로 입력했는지 확인해주세요.'}
+            helperTextClassName='helperText'
           />
-          <InputLoginOnchangeRegex
+          <InputOnchangeRegex
             title='password'
             type='password'
             name='password'
             value={values?.password}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordInput}
-            className='loginInput'
-            onChange={handlerChange}
-            regexCheck={regex.password}
+            onChange={handleChangeTarget}
+            labelClassName='label'
+            className='input'
             maxValue={10}
+            regexCheck={regex.password}
             defaultText={'비밀번호를 입력하세요.'}
             successText={'성공'}
             errorText={'한글 3글자 이상'}
+            helperTextClassName='helperText'
           />
-          <div className='loginBtn'>
+          <div className='submitBtn'>
             <SubmitBtn text='로그인' className='blueSubmitBtn' />
           </div>
         </form>

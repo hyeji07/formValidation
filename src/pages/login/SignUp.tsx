@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
-import Input from '@components/Input/Input';
+import Input from '@components/input/Input';
 import SubmitBtn from '@components/btns/SubmitBtn';
 /* import { doSignUp } from '@services/LoginService'; */
 

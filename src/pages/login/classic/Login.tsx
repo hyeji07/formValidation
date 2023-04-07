@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
-import Input from '@components/Input/Input';
+import Input from '@components/input/Input';
 
 import '../login.scss';
 
@@ -36,9 +36,9 @@ const Login = () => {
   };
 
   return (
-    <div className='loginContainer'>
-      <h3 className='loginTitle'> Login </h3>
-      <div className='loginBox'>
+    <div className='formContainer'>
+      <h3 className='formTitle'> Login </h3>
+      <div className='formBox'>
         <form onSubmit={handleSubmit}>
           <Input
             title='id'
@@ -48,7 +48,7 @@ const Login = () => {
             onChange={handleChange}
             placeholder='아이디를 입력하세요.'
             ref={idInput}
-            className='loginInput'
+            className='input'
           />
           <Input
             title='password'
@@ -58,9 +58,9 @@ const Login = () => {
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordInput}
-            className='loginInput'
+            className='input'
           />
-          <div className='loginBtn'>
+          <div className='submitBtn'>
             <SubmitBtn text='로그인' className='blueSubmitBtn' />
           </div>
         </form>

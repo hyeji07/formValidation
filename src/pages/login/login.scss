@@ -1,17 +1,22 @@
-.loginContainer {
-  .loginTitle {
+.formContainer {
+  .formTitle {
     text-align: center;
     margin-bottom: 4rem;
     color: #524f4f;
     font-size: 3rem;
   }
-  .loginInput {
+  .input {
     width: 100%;
-    margin: 1rem 0 3rem 0;
+    margin: 1rem 0 0.5rem 0;
     line-height: 3rem;
     border: 1px solid #ccc;
+
+    //기본 focus 선택시 스타일
+    &:focus {
+      border: 1px solid #53d98bbe;
+    }
   }
-  .loginBtn {
+  .submitBtn {
     display: flex;
     justify-content: center;
     .blueSubmitBtn {
@@ -28,6 +33,8 @@
       }
     }
   }
+
+  //
   .signUpTxt {
     font-size: 1.4rem;
     text-align: right;
@@ -37,5 +44,39 @@
     &:hover {
       text-decoration: underline;
     }
+  }
+}
+
+////Regex
+.helperText {
+  margin-bottom: 4rem;
+  color: rgb(49, 157, 112);
+}
+
+//Regex Error
+.labelErr {
+  .input {
+    border: 1px solid #fd9797;
+    &:focus {
+      border: 1px solid #fd9797;
+    }
+  }
+
+  .helperText {
+    color: #fd9797;
+  }
+}
+
+//Regex Success
+.labelSuccess {
+  .input {
+    border: 1px solid #1d5aae;
+    &:focus {
+      border: 1px solid #1d5aae;
+    }
+  }
+
+  .helperText {
+    color: #1d5aae;
   }
 }
