@@ -1,10 +1,11 @@
 //onChange 작성하는 동안 유효성검사를 하는 컴포넌트(API 통신 전)
 //1.글자수 제한
-//2.한글인지 체크
+//2.한글,영어,특수문자 조건에 따라 체크
 //3.조건에 충족한 성공은 해당 스타일 적용(+아래 Text출력)
-//3.Err일 경우에는 해당 스타일 적용(+아래 Text출력)
+//4.Err일 경우에는 해당 스타일 적용(+아래 Text출력)
+//5.모든 test통과시 submit버튼 활성화, 아닐시 비활성화
 
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useForm } from '@hooks/useForm';
@@ -28,10 +29,12 @@ const LoginOnchangeRegex = () => {
     }
     console.log(e); */
 
+  //여기서 ref는 사용하진 않음
   const idInput = useRef<HTMLInputElement>(null);
   const emailInput = useRef<HTMLInputElement>(null);
   const passwordInput = useRef<HTMLInputElement>(null);
 
+  //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
 
   //Input Value 실시간 반영
