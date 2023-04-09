@@ -1,8 +1,7 @@
 //onChange 작성하는 동안 유효성검사를 하는 컴포넌트(API 통신 전)
-import React, { forwardRef, useState, useRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 
 import { FormInterface } from '@interfaces/components/FormInterface';
-import { useForm } from '@hooks/useForm';
 
 /* import styled from '@emotion/styled';
 
