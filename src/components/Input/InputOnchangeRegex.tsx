@@ -53,7 +53,6 @@ export default forwardRef(function InputOnchangeRegex(
     }
 
     if (regexCheck) {
-      console.log(regexCheck);
       // 정규표현식체크가 통과되면 successText를 송출하고 아니면 errorText를 송출한다.
       if (regexCheck.test(e.target.value)) {
         setIsError('success');

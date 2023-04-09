@@ -8,5 +8,6 @@ export namespace BtnInterface {
   export interface SubmitBtnInterface {
     text: string;
     className?: string;
+    disabled?: boolean;
   }
 }
