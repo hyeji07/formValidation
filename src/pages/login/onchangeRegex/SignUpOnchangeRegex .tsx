@@ -86,18 +86,39 @@ const SignUpOnchangeRegex = () => {
             value={values?.id}
             placeholder=''
             ref={idInput}
-            className='input inputSignUp'
+            className='input'
             labelClassName='label'
             onChange={handleChangeTarget}
             regexCheck={regex.id}
-            maxValue={10}
+            maxValue={20}
             defaultText={''}
             successText={'성공'}
             errorText={
               '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.'
             }
+            helperTextClassName='helperText'
+            required={true} //필수입력정보
+          />
+
+          <InputSingUpOnchangeRegex
+            title='비밀번호'
+            type='password'
+            name='password'
+            value={values?.password}
+            placeholder=''
+            ref={passwordInput}
+            onChange={handleChangeTarget}
+            labelClassName='label'
+            className='input'
+            maxValue={16}
+            regexCheck={regex.password}
+            defaultText={''}
+            successText={'성공'}
+            errorText={
+              '8~16자 영문 대 소문자, 숫자, 특수문자를 사용했는지 확인해주세요.'
+            }
+            helperTextClassName='helperText'
             required={true}
-            helperTextClassName='helperText' //필수입력정보
           />
           {/*   <InputOnchangeRegex
             title='email'

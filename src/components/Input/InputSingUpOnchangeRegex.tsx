@@ -66,6 +66,7 @@ export default forwardRef(function InputSignUpOnchangeRegex(
     } //* test()메소드: 인수로 전달된 문자열에 특정 패턴과 일치하는 문자열이 있는지를 검색하여, 그 결과를 불리언 값으로 반환함.
   };
 
+  //focus되었을때 필수정보 value값이 비어있는 경우
   const handleOnfocus = (e: React.ChangeEvent<HTMLInputElement>) => {
     //필수정보가 공백일 경우
     if (e.target.value === '' && required === true) {

@@ -82,7 +82,7 @@ export default forwardRef(function InputOnchangeRegex(
         placeholder={placeholder}
         ref={ref}
         className={className}
-        maxLength={maxValue} //글자 수 제08a600
+        maxLength={maxValue} //글자 수 제한
         onInput={handleChangeRegex} //글자 수 제한
       />
       <p className={helperTextClassName}>{helperText}</p>
