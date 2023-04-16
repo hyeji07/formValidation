@@ -10,7 +10,7 @@ export namespace FormInterface {
     className?: string;
   }
 
-  //InputLoginOnchangeRegex 의 경우
+  //InputLoginOnchangeRegex,InputSignUpOnchangeRegex 의 경우
   export interface InputRegexInterface {
     title: string;
     type: string;
@@ -28,6 +28,7 @@ export namespace FormInterface {
     errorText: string;
     helperTextClassName?: string;
     onInput?: any;
+    required?: boolean;
   }
 
   export interface TextAreaInterface {

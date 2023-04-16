@@ -40,6 +40,9 @@ const password =
 // . any 문자or숫자or공백
 // {8,} 최소 8자 이상 일때는 이렇게 사용
 
-const regex = { nickname, email, password };
+//<sign up 회원가입>
+const id = /^[a-z0-9_-]{5,20}$/;
+
+const regex = { nickname, email, password, id };
 
 export default regex;

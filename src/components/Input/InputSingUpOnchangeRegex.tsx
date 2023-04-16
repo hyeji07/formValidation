@@ -7,7 +7,7 @@ import { FormInterface } from '@interfaces/components/FormInterface';
 
 const InputBox = styled.input(`&:focus{border:1px solid #fd9797;}`); */
 
-export default forwardRef(function InputOnchangeRegex(
+export default forwardRef(function InputSignUpOnchangeRegex(
   {
     title,
     type,
@@ -24,6 +24,7 @@ export default forwardRef(function InputOnchangeRegex(
     successText,
     errorText,
     helperTextClassName,
+    required,
   }: FormInterface.InputRegexInterface,
   ref?: React.ForwardedRef<HTMLInputElement>
 ) {
@@ -46,10 +47,10 @@ export default forwardRef(function InputOnchangeRegex(
       e.target.value = e.target.value.slice(0, maxValue);
     }
 
-    //공백인 경우 defaultText로 바꾼다.
-    if (e.target.value === '') {
-      setIsError('err');
-      return setHelperText(errorText);
+    //필수정보가 공백일 경우
+    if (e.target.value === '' && required === true) {
+      setIsError('requiredErr');
+      return setHelperText('필수 정보입니다.');
     }
 
     if (regexCheck) {
@@ -65,11 +66,21 @@ export default forwardRef(function InputOnchangeRegex(
     } //* test()메소드: 인수로 전달된 문자열에 특정 패턴과 일치하는 문자열이 있는지를 검색하여, 그 결과를 불리언 값으로 반환함.
   };
 
+  const handleOnfocus = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //필수정보가 공백일 경우
+    if (e.target.value === '' && required === true) {
+      setIsError('requiredErr');
+      return setHelperText('필수 정보입니다.');
+    }
+  };
+
   return (
     <label
       className={
         labelClassName +
-        (isError === 'err' ? `Err ${labelClassName}` : '') +
+        (isError === 'err' || isError === 'requiredErr'
+          ? `Err ${labelClassName}`
+          : '') +
         (isError === 'success' ? `Success ${labelClassName}` : '')
       } //처음 기본, err시, 성공시 class분류
     >
@@ -82,8 +93,9 @@ export default forwardRef(function InputOnchangeRegex(
         placeholder={placeholder}
         ref={ref}
         className={className}
-        maxLength={maxValue} //글자 수 제08a600
+        maxLength={maxValue} //글자 수 제한
         onInput={handleChangeRegex} //글자 수 제한
+        onFocus={handleOnfocus}
       />
       <p className={helperTextClassName}>{helperText}</p>
     </label>

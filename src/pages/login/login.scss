@@ -47,40 +47,84 @@
   }
 }
 
-////Regex
-.helperText {
-  margin-bottom: 4rem;
-  color: rgb(49, 157, 112);
-}
+////Regex (LoginOnchangeRegex 버전)
+.regexTestForm {
+  .helperText {
+    margin-bottom: 4rem;
+    color: rgb(49, 157, 112);
+  }
 
-//Regex Error
-.labelErr {
-  .input {
-    border: 1px solid #fd9797;
-    &:focus {
+  //Regex Error
+  .labelErr {
+    .input {
       border: 1px solid #fd9797;
+      &:focus {
+        border: 1px solid #fd9797;
+      }
+    }
+
+    .helperText {
+      color: #fd9797;
     }
   }
-
-  .helperText {
-    color: #fd9797;
+  .submitBtn.Err .blueSubmitBtn {
+    background-color: #a4abb0;
+    cursor: not-allowed;
   }
-}
-.submitBtn.Err .blueSubmitBtn {
-  background-color: #a4abb0;
-  cursor: not-allowed;
-}
 
-//Regex Success
-.labelSuccess {
-  .input {
-    border: 1px solid #1d5aae;
-    &:focus {
+  //Regex Success
+  .labelSuccess {
+    .input {
       border: 1px solid #1d5aae;
+      &:focus {
+        border: 1px solid #1d5aae;
+      }
+    }
+
+    .helperText {
+      color: #1d5aae;
     }
   }
+}
 
+//Regex(SignUpOnchangeRegex 버전)
+.signUpForm {
+  ////Regex
   .helperText {
-    color: #1d5aae;
+    margin-bottom: 4rem;
+    /* color: rgb(49, 157, 112); */
+    font-size: 1.4rem;
+  }
+
+  //Regex Error
+  .labelErr {
+    /*   .input {
+      border: 1px solid #fd9797;
+      &:focus {
+        border: 1px solid #fd9797;
+      }
+    } */
+
+    .helperText {
+      color: #ff0000;
+    }
+  }
+  .submitBtn.Err .blueSubmitBtn {
+    background-color: #a4abb0;
+    cursor: not-allowed;
+  }
+
+  //Regex Success
+  .labelSuccess {
+    /* .input {
+      border: 1px solid #1d5aae;
+      &:focus {
+        border: 1px solid #1d5aae;
+      }
+    } */
+
+    .helperText {
+      color: #08a600;
+    }
   }
 }

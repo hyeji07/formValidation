@@ -5,18 +5,20 @@
 //4.Err일 경우에는 해당 스타일 적용(+아래 Text출력)
 //5.모든 test통과시 submit버튼 활성화, 아닐시 비활성화
 
+///naver 회원가입 참고로 구현중
+
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
 
-import InputOnchangeRegex from '@components/input/InputOnchangeRegex';
+import InputSingUpOnchangeRegex from '@components/input/InputSingUpOnchangeRegex';
 import regex from './regex';
 
 import '../login.scss';
 
-const LoginOnchangeRegex = () => {
+const SignUpOnchangeRegex = () => {
   /*    if (!values.username) {
       alert('아이디를 입력해주세요');
       idInput.current?.focus();
@@ -39,7 +41,7 @@ const LoginOnchangeRegex = () => {
 
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
-    username: '',
+    id: '',
     email: '',
     password: '',
   });
@@ -56,14 +58,13 @@ const LoginOnchangeRegex = () => {
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함.
   useEffect(() => {
     //기존 공통사용으로 여러개였던 type을 regex test하기 위해선 String으로 바꿔줘야해서 형변환시킴
-    const usernameValue = String(values.username);
+    const idValue = String(values.id);
     const pwValue = String(values.password);
     const emailValue = String(values.email);
 
     //&&는 차례대로 순서 작성해야 모든것이 적용되는것을 참고하기.
-
     if (
-      regex.nickname.test(usernameValue) &&
+      regex.id.test(idValue) &&
       regex.email.test(emailValue) &&
       regex.password.test(pwValue)
     ) {
@@ -77,25 +78,28 @@ const LoginOnchangeRegex = () => {
     <div className='formContainer'>
       <h3 className='formTitle'> </h3>
       <div className='formBox'>
-        <form /* onSubmit={handleOnChange} */ className='regexTestForm'>
-          <InputOnchangeRegex
-            title='id'
+        <form /* onSubmit={handleOnChange} */ className='signUpForm'>
+          <InputSingUpOnchangeRegex
+            title='아이디'
             type='text'
-            name='username'
-            value={values?.username}
-            placeholder='이름을 입력하세요.'
+            name='id'
+            value={values?.id}
+            placeholder=''
             ref={idInput}
-            className='input'
+            className='input inputSignUp'
             labelClassName='label'
             onChange={handleChangeTarget}
-            regexCheck={regex.nickname}
+            regexCheck={regex.id}
             maxValue={10}
-            defaultText={'이름은 한글로 3자~10자 이하로 입력해주세요.'}
+            defaultText={''}
             successText={'성공'}
-            errorText={'한글로 3자~10자 이하로 입력했는지 확인해주세요.'}
-            helperTextClassName='helperText'
+            errorText={
+              '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.'
+            }
+            required={true}
+            helperTextClassName='helperText' //필수입력정보
           />
-          <InputOnchangeRegex
+          {/*   <InputOnchangeRegex
             title='email'
             type='input'
             name='email'
@@ -129,7 +133,7 @@ const LoginOnchangeRegex = () => {
               '8~16자 영문 대 소문자, 숫자, 특수문자를 사용했는지 확인해주세요.'
             }
             helperTextClassName='helperText'
-          />
+          /> */}
 
           {/* regex test 통과 안된 경우 submit button 비활성화되도록 설정*/}
           <div className={isOn === false ? 'submitBtn Err' : 'submitBtn'}>
@@ -141,11 +145,8 @@ const LoginOnchangeRegex = () => {
           </div>
         </form>
       </div>
-      <p className='signUpTxt'>
-        <Link to='/sign_up'>회원가입</Link>
-      </p>
     </div>
   );
 };
 
-export default LoginOnchangeRegex;
+export default SignUpOnchangeRegex;
