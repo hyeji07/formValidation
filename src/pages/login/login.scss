@@ -127,4 +127,19 @@
       color: #08a600;
     }
   }
+
+  //비밀번호 재확인
+  .confirm {
+    background: url(https://static.nid.naver.com/images/ui/join/m_icon_pw_step.png) -27px
+      0px / 125px 75px no-repeat;
+    position: absolute;
+    right: 13px;
+    width: 24px;
+    height: 24px;
+    top: 50%;
+    transform: translateY(-39%);
+  }
+  .confirmSuccess {
+    background-position: -81px 0;
+  }
 }

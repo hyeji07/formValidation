@@ -34,16 +34,20 @@ const SignUpOnchangeRegex = () => {
   //여기서 ref는 사용하진 않음
   const idInput = useRef<HTMLInputElement>(null);
   const emailInput = useRef<HTMLInputElement>(null);
-  const passwordInput = useRef<HTMLInputElement>(null);
+  //
+  const pwRef = useRef<HTMLInputElement>(null);
+  const confirmPwRef = useRef<HTMLInputElement>(null);
 
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
+  const [confirm, setConfirm] = useState(false);
 
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
     id: '',
     email: '',
     password: '',
+    passwordReconfirm: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -53,6 +57,35 @@ const SignUpOnchangeRegex = () => {
       | React.ChangeEvent<HTMLTextAreaElement>
   ) => {
     handleChange(e);
+
+    //
+    const pwInput = pwRef.current.value;
+    const confirmpwInput = confirmPwRef.current.value;
+    const isMatch = pwInput === confirmpwInput;
+    setConfirm(isMatch);
+
+    if (isMatch) {
+      confirmPwRef.current.style.border = '2px solid green';
+      setConfirm(true);
+      confirmPwRef.current.classList.remove('suceess');
+    } else {
+      confirmPwRef.current.style.border = '2px solid red';
+      setConfirm(false);
+      confirmPwRef.current.classList.add('after');
+    }
+
+    //
+    /*    if (signUpPwInput.current.value !== reconfirmPwInput.current.value) {
+      setConfirem('err');
+      console.log(confirem);
+      console.log(signUpPwInput.current.value);
+      console.log(reconfirmPwInput.current.value);
+    } else if (signUpPwInput === reconfirmPwInput) {
+      setConfirem('success');
+      console.log(confirem);
+      console.log(signUpPwInput.current.value);
+      console.log(reconfirmPwInput.current.value);
+    } */
   };
 
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함.
@@ -74,6 +107,14 @@ const SignUpOnchangeRegex = () => {
     }
   }, [values]); //디펜더시는 values로 설정해야 input값이 작성중 바뀔때 실시간으로 감지되어 위 코드가 적용된다.
 
+  /*  useEffect(() => {
+    if (values.password === values.passwordReconfirm) {
+      setConfirem('success');
+    } else {
+      setConfirem('err');
+    }
+  }, [values]); */
+
   return (
     <div className='formContainer'>
       <h3 className='formTitle'> </h3>
@@ -91,7 +132,6 @@ const SignUpOnchangeRegex = () => {
             onChange={handleChangeTarget}
             regexCheck={regex.id}
             maxValue={20}
-            defaultText={''}
             successText={'성공'}
             errorText={
               '5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.'
@@ -106,20 +146,40 @@ const SignUpOnchangeRegex = () => {
             name='password'
             value={values?.password}
             placeholder=''
-            ref={passwordInput}
+            ref={pwRef}
             onChange={handleChangeTarget}
             labelClassName='label'
             className='input'
             maxValue={16}
             regexCheck={regex.password}
-            defaultText={''}
             successText={'성공'}
-            errorText={
-              '8~16자 영문 대 소문자, 숫자, 특수문자를 사용했는지 확인해주세요.'
-            }
+            errorText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
             helperTextClassName='helperText'
             required={true}
           />
+          <div>
+            <InputSingUpOnchangeRegex
+              title='비밀번호 재확인'
+              type='password'
+              name='passwordReconfirm'
+              value={values?.passwordReconfirm}
+              placeholder=''
+              ref={confirmPwRef}
+              onChange={handleChangeTarget}
+              labelClassName='label'
+              className='input'
+              maxValue={16}
+              /*  regexCheck={regex.password} */
+              successText={'성공'}
+              errorText={'실패'}
+              confirm={confirm}
+              helperTextClassName='helperText'
+              required={true}
+            />
+            <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
+            {/* 비번 진행중 */}
+          </div>
+
           {/*   <InputOnchangeRegex
             title='email'
             type='input'

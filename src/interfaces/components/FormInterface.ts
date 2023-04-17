@@ -22,13 +22,14 @@ export namespace FormInterface {
     labelClassName: string;
     className?: string;
     maxValue?: number;
-    regexCheck: RegExp; //정규식은 RegExp 타입
-    defaultText: string;
+    regexCheck?: RegExp; //정규식은 RegExp 타입
+    defaultText?: string;
     successText: string;
     errorText: string;
     helperTextClassName?: string;
     onInput?: any;
     required?: boolean;
+    confirm?: boolean;
   }
 
   export interface TextAreaInterface {

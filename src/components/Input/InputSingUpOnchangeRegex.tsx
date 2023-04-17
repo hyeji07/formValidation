@@ -20,16 +20,16 @@ export default forwardRef(function InputSignUpOnchangeRegex(
     className,
     maxValue,
     regexCheck,
-    defaultText,
     successText,
     errorText,
     helperTextClassName,
     required,
+    confirm,
   }: FormInterface.InputRegexInterface,
   ref?: React.ForwardedRef<HTMLInputElement>
 ) {
   const [isError, setIsError] = useState(''); //err 감지
-  const [helperText, setHelperText] = useState(defaultText); //아래 문구
+  const [helperText, setHelperText] = useState(''); //아래 문구
 
   //유효성 검사 함수
   const handleChangeRegex = (
@@ -64,6 +64,20 @@ export default forwardRef(function InputSignUpOnchangeRegex(
         setHelperText(errorText);
       }
     } //* test()메소드: 인수로 전달된 문자열에 특정 패턴과 일치하는 문자열이 있는지를 검색하여, 그 결과를 불리언 값으로 반환함.
+
+    //비밀번호 재확인
+    if (!regexCheck) {
+      if (e.target.value !== '') {
+        if (confirm === false) {
+          setIsError('err');
+          return setHelperText(errorText);
+        }
+        if (confirm === true) {
+          setIsError('success');
+          return setHelperText(successText);
+        }
+      }
+    }
   };
 
   //focus되었을때 필수정보 value값이 비어있는 경우
