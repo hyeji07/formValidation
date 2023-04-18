@@ -1,5 +1,5 @@
 //onChange 작성하는 동안 유효성검사를 하는 컴포넌트(API 통신 전)
-import React, { forwardRef, useState } from 'react';
+import React, { forwardRef, useEffect, useState } from 'react';
 
 import { FormInterface } from '@interfaces/components/FormInterface';
 
@@ -61,23 +61,9 @@ export default forwardRef(function InputSignUpOnchangeRegex(
       }
       if (!regexCheck.test(e.target.value)) {
         setIsError('err');
-        setHelperText(errorText);
+        return setHelperText(errorText);
       }
     } //* test()메소드: 인수로 전달된 문자열에 특정 패턴과 일치하는 문자열이 있는지를 검색하여, 그 결과를 불리언 값으로 반환함.
-
-    //비밀번호 재확인
-    if (!regexCheck) {
-      if (e.target.value !== '') {
-        if (confirm === false) {
-          setIsError('err');
-          return setHelperText(errorText);
-        }
-        if (confirm === true) {
-          setIsError('success');
-          return setHelperText(successText);
-        }
-      }
-    }
   };
 
   //focus되었을때 필수정보 value값이 비어있는 경우
@@ -88,6 +74,19 @@ export default forwardRef(function InputSignUpOnchangeRegex(
       return setHelperText('필수 정보입니다.');
     }
   };
+
+  //비밀번호 재확인 (useEffect를 사용해 value값,confirm이 바뀔때 helperText가 재랜더링되도록 해야함)
+  useEffect(() => {
+    if (type === 'password' && value !== '') {
+      if (confirm === false) {
+        setIsError('err');
+        return setHelperText(errorText);
+      } else if (confirm === true) {
+        setIsError('success');
+        return setHelperText(successText);
+      }
+    } //
+  }, [helperText, value, confirm]); //디펜더시 중요
 
   return (
     <label
@@ -112,7 +111,9 @@ export default forwardRef(function InputSignUpOnchangeRegex(
         onInput={handleChangeRegex} //글자 수 제한
         onFocus={handleOnfocus}
       />
-      <p className={helperTextClassName}>{helperText}</p>
+      {/*  <p className={helperTextClassName}>{helperText}</p> */}
+
+      <p className='helperText'>{helperText}</p>
     </label>
   );
 });

@@ -58,20 +58,22 @@ const SignUpOnchangeRegex = () => {
   ) => {
     handleChange(e);
 
-    //
-    const pwInput = pwRef.current.value;
-    const confirmpwInput = confirmPwRef.current.value;
+    //비밀번호 일치 확인
+    const pwInput = pwRef.current.value; //비밀번호
+    const confirmpwInput = confirmPwRef.current.value; //비밀번호 재확인
     const isMatch = pwInput === confirmpwInput;
     setConfirm(isMatch);
 
-    if (isMatch) {
-      confirmPwRef.current.style.border = '2px solid green';
-      setConfirm(true);
-      confirmPwRef.current.classList.remove('suceess');
+    if (pwInput && confirmpwInput) {
+      if (isMatch) {
+        setConfirm(true);
+        /*  confirmPwRef.current.classList.remove('suceess'); */
+      } else {
+        //confirmPwRef.current.style.border = '2px solid red';
+        setConfirm(false);
+      }
     } else {
-      confirmPwRef.current.style.border = '2px solid red';
       setConfirm(false);
-      confirmPwRef.current.classList.add('after');
     }
 
     //
@@ -170,13 +172,16 @@ const SignUpOnchangeRegex = () => {
               className='input'
               maxValue={16}
               /*  regexCheck={regex.password} */
-              successText={'성공'}
-              errorText={'실패'}
-              confirm={confirm}
+              successText={''}
+              errorText={'비밀번호가 일치하지 않습니다.'}
+              confirm={confirm} //재확인 일치여부
               helperTextClassName='helperText'
               required={true}
             />
             <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
+            {/*  <p className='helperText'>
+              {confirm ? '' : '비밀번호가 일치하지 않습니다.'}
+            </p> */}
             {/* 비번 진행중 */}
           </div>
 
