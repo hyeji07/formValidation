@@ -111,9 +111,8 @@ export default forwardRef(function InputSignUpOnchangeRegex(
         onInput={handleChangeRegex} //글자 수 제한
         onFocus={handleOnfocus}
       />
-      {/*  <p className={helperTextClassName}>{helperText}</p> */}
 
-      <p className='helperText'>{helperText}</p>
+      {helperText && <p className='helperText'>{helperText}</p>}
     </label>
   );
 });

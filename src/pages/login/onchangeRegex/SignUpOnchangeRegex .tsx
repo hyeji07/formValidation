@@ -69,7 +69,6 @@ const SignUpOnchangeRegex = () => {
         setConfirm(true);
         /*  confirmPwRef.current.classList.remove('suceess'); */
       } else {
-        //confirmPwRef.current.style.border = '2px solid red';
         setConfirm(false);
       }
     } else {
@@ -154,7 +153,7 @@ const SignUpOnchangeRegex = () => {
             className='input'
             maxValue={16}
             regexCheck={regex.password}
-            successText={'성공'}
+            successText={''}
             errorText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
             helperTextClassName='helperText'
             required={true}
