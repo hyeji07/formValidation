@@ -18,6 +18,8 @@ import regex from './regex';
 
 import '../login.scss';
 
+import SelectOption from '@components/selects/selectOption';
+
 const SignUpOnchangeRegex = () => {
   /*    if (!values.username) {
       alert('아이디를 입력해주세요');
@@ -48,6 +50,7 @@ const SignUpOnchangeRegex = () => {
     email: '',
     password: '',
     passwordReconfirm: '',
+    userName: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -89,7 +92,8 @@ const SignUpOnchangeRegex = () => {
     } */
   };
 
-  //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함.
+  //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
+  const pwValue = String(values.password);
   useEffect(() => {
     //기존 공통사용으로 여러개였던 type을 regex test하기 위해선 String으로 바꿔줘야해서 형변환시킴
     const idValue = String(values.id);
@@ -99,8 +103,9 @@ const SignUpOnchangeRegex = () => {
     //&&는 차례대로 순서 작성해야 모든것이 적용되는것을 참고하기.
     if (
       regex.id.test(idValue) &&
-      regex.email.test(emailValue) &&
-      regex.password.test(pwValue)
+      /*  regex.email.test(emailValue) && */
+      regex.password.test(pwValue) &&
+      confirm
     ) {
       setIsOn(true);
     } else {
@@ -141,24 +146,27 @@ const SignUpOnchangeRegex = () => {
             required={true} //필수입력정보
           />
 
-          <InputSingUpOnchangeRegex
-            title='비밀번호'
-            type='password'
-            name='password'
-            value={values?.password}
-            placeholder=''
-            ref={pwRef}
-            onChange={handleChangeTarget}
-            labelClassName='label'
-            className='input'
-            maxValue={16}
-            regexCheck={regex.password}
-            successText={''}
-            errorText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
-            helperTextClassName='helperText'
-            required={true}
-          />
-          <div>
+          <div className='pwContainer'>
+            <InputSingUpOnchangeRegex
+              title='비밀번호'
+              type='password'
+              name='password'
+              value={values?.password}
+              placeholder=''
+              ref={pwRef}
+              onChange={handleChangeTarget}
+              labelClassName='label'
+              className='input'
+              maxValue={16}
+              regexCheck={regex.password}
+              successText={''}
+              errorText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
+              helperTextClassName='helperText'
+              required={true}
+            />
+          </div>
+
+          <div className='pwContainer'>
             <InputSingUpOnchangeRegex
               title='비밀번호 재확인'
               type='password'
@@ -177,11 +185,33 @@ const SignUpOnchangeRegex = () => {
               helperTextClassName='helperText'
               required={true}
             />
-            <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
-            {/*  <p className='helperText'>
-              {confirm ? '' : '비밀번호가 일치하지 않습니다.'}
-            </p> */}
-            {/* 비번 진행중 */}
+          </div>
+
+          <div className='pwContainer'>
+            <InputSingUpOnchangeRegex
+              title='이름'
+              type='text'
+              name='userName'
+              value={values?.userName}
+              placeholder=''
+              /* ref={userNameRef} */
+              onChange={handleChangeTarget}
+              labelClassName='label'
+              className='input'
+              maxValue={40}
+              regexCheck={regex.userName}
+              successText={''}
+              errorText={
+                '한글과 영문 대 소문자를 사용하세요. (특수기호, 공백 사용 불가)'
+              }
+              helperTextClassName='helperText'
+              required={true}
+            />
+          </div>
+
+          <div>
+            생년월일
+            <SelectOption />
           </div>
 
           {/*   <InputOnchangeRegex

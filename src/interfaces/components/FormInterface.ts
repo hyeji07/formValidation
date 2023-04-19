@@ -25,7 +25,7 @@ export namespace FormInterface {
     regexCheck?: RegExp; //정규식은 RegExp 타입
     defaultText?: string;
     successText: string;
-    errorText: string;
+    errorText?: string;
     helperTextClassName?: string;
     onInput?: any;
     required?: boolean;

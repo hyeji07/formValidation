@@ -113,6 +113,18 @@ export default forwardRef(function InputSignUpOnchangeRegex(
       />
 
       {helperText && <p className='helperText'>{helperText}</p>}
+
+      {/* 비밀번호 자물쇠 img */}
+      {name === 'password' && (
+        <p
+          className={'pwImg' + (isError === 'success' ? 'Success pwImg' : '')}
+        ></p>
+      )}
+
+      {/* 비밀번호 재확인 자물쇠 img */}
+      {name === 'passwordReconfirm' && (
+        <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
+      )}
     </label>
   );
 });
