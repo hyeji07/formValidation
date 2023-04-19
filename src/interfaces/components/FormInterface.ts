@@ -12,7 +12,7 @@ export namespace FormInterface {
 
   //InputLoginOnchangeRegex,InputSignUpOnchangeRegex 의 경우
   export interface InputRegexInterface {
-    title: string;
+    title?: string;
     type: string;
     name: string;
     value: string | number | undefined;

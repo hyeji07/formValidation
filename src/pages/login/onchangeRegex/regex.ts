@@ -43,8 +43,13 @@ const password =
 //<sign up 회원가입>
 const id = /^[a-z0-9_-]{5,20}$/;
 
+//이름
 const userName = /^[가-힣|A-Z|a-z]{1,40}$/;
 
-const regex = { nickname, email, password, id, userName };
+//생년월일-년도
+const birYear = /^[0-9]{4}$/;
+const birDay = /^[0-9]{2}$/;
+
+const regex = { nickname, email, password, id, userName, birYear, birDay };
 
 export default regex;

@@ -51,6 +51,7 @@ const SignUpOnchangeRegex = () => {
     password: '',
     passwordReconfirm: '',
     userName: '',
+    birYear: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -211,7 +212,39 @@ const SignUpOnchangeRegex = () => {
 
           <div>
             생년월일
+            <InputSingUpOnchangeRegex
+              type='text'
+              name='birYear'
+              value={values?.birYear}
+              placeholder='년(자)'
+              /* ref={userNameRef} */
+              onChange={handleChangeTarget}
+              labelClassName='label'
+              className='input'
+              maxValue={4}
+              regexCheck={regex.birYear}
+              successText={''}
+              errorText={'태어난 년도 4자리를 정확하게 입력하세요.'}
+              helperTextClassName='helperText'
+              /*   required={true} */
+            />
             <SelectOption />
+            <InputSingUpOnchangeRegex
+              type='text'
+              name='birDay'
+              value={values?.birDay}
+              placeholder='일'
+              /* ref={userNameRef} */
+              onChange={handleChangeTarget}
+              labelClassName='label'
+              className='input'
+              maxValue={2}
+              regexCheck={regex.birDay}
+              successText={''}
+              errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'}
+              helperTextClassName='helperText'
+              /*   required={true} */
+            />
           </div>
 
           {/*   <InputOnchangeRegex
