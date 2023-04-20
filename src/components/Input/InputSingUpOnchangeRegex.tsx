@@ -88,6 +88,17 @@ export default forwardRef(function InputSignUpOnchangeRegex(
     } //
   }, [helperText, value, confirm]); //디펜더시 중요
 
+  //생년월일 -년,일 0일 경우 errText
+  useEffect(() => {
+    if (name === 'birYear' || name === 'birDay') {
+      const NumValue = Number(value);
+
+      if (value !== '' && NumValue === 0) {
+        return setHelperText('정말이세요?');
+      }
+    }
+  }, [helperText, value]);
+
   return (
     <label
       className={

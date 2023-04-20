@@ -47,8 +47,8 @@ const id = /^[a-z0-9_-]{5,20}$/;
 const userName = /^[가-힣|A-Z|a-z]{1,40}$/;
 
 //생년월일-년도
-const birYear = /^[0-9]{4}$/;
-const birDay = /^[0-9]{2}$/;
+const birYear = /^(?!0000)[0-9]{4}$/;
+const birDay = /^(?!00)[0-9]{2}$/;
 
 const regex = { nickname, email, password, id, userName, birYear, birDay };
 

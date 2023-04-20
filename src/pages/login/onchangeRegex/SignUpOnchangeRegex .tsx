@@ -18,7 +18,8 @@ import regex from './regex';
 
 import '../login.scss';
 
-import SelectOption from '@components/selects/selectOption';
+import SelectOptionMonth from '@components/selects/selectOptionMonth';
+import SelectOptionGender from '@components/selects/selectOptionGender';
 
 const SignUpOnchangeRegex = () => {
   /*    if (!values.username) {
@@ -43,6 +44,8 @@ const SignUpOnchangeRegex = () => {
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
   const [confirm, setConfirm] = useState(false);
+  //errText 변경
+  const [otherErrText, setOtherErrText] = useState(false);
 
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
@@ -52,6 +55,7 @@ const SignUpOnchangeRegex = () => {
     passwordReconfirm: '',
     userName: '',
     birYear: '',
+    birDay: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -121,6 +125,20 @@ const SignUpOnchangeRegex = () => {
       setConfirem('err');
     }
   }, [values]); */
+
+  /*  useEffect(() => {
+    //생년월일 errText
+    if (values.birYear || values.birDay) {
+      const NumYear = Number(values.birYear);
+      const NumDay = Number(values.birDay);
+
+      if (NumYear === 0 || NumDay === 0) {
+        setOtherErrText(true);
+      } else {
+        setOtherErrText(false);
+      }
+    }
+  }, [values, otherErrText]); */
 
   return (
     <div className='formContainer'>
@@ -210,41 +228,49 @@ const SignUpOnchangeRegex = () => {
             />
           </div>
 
+          {/* ing */}
           <div>
-            생년월일
-            <InputSingUpOnchangeRegex
-              type='text'
-              name='birYear'
-              value={values?.birYear}
-              placeholder='년(자)'
-              /* ref={userNameRef} */
-              onChange={handleChangeTarget}
-              labelClassName='label'
-              className='input'
-              maxValue={4}
-              regexCheck={regex.birYear}
-              successText={''}
-              errorText={'태어난 년도 4자리를 정확하게 입력하세요.'}
-              helperTextClassName='helperText'
-              /*   required={true} */
-            />
-            <SelectOption />
-            <InputSingUpOnchangeRegex
-              type='text'
-              name='birDay'
-              value={values?.birDay}
-              placeholder='일'
-              /* ref={userNameRef} */
-              onChange={handleChangeTarget}
-              labelClassName='label'
-              className='input'
-              maxValue={2}
-              regexCheck={regex.birDay}
-              successText={''}
-              errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'}
-              helperTextClassName='helperText'
-              /*   required={true} */
-            />
+            <p>생년월일</p>
+            <div className='birContainer'>
+              <InputSingUpOnchangeRegex
+                type='text'
+                name='birYear'
+                value={values?.birYear}
+                placeholder='년(자)'
+                /* ref={userNameRef} */
+                onChange={handleChangeTarget}
+                labelClassName='label'
+                className='input'
+                maxValue={4}
+                regexCheck={regex.birYear}
+                successText={''}
+                errorText={'태어난 년도 4자리를 정확하게 입력하세요.'}
+                helperTextClassName='helperText'
+                /*   required={true} */
+              />
+              <SelectOptionMonth />
+              <InputSingUpOnchangeRegex
+                type='text'
+                name='birDay'
+                value={values?.birDay}
+                placeholder='일'
+                /* ref={userNameRef} */
+                onChange={handleChangeTarget}
+                labelClassName='label'
+                className='input'
+                maxValue={2}
+                regexCheck={regex.birDay}
+                successText={''}
+                errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'}
+                helperTextClassName='helperText'
+                /*  required={true} */
+              />
+            </div>
+          </div>
+
+          <div className='selectContainer'>
+            <p>성별</p>
+            <SelectOptionGender />
           </div>
 
           {/*   <InputOnchangeRegex
