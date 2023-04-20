@@ -18,8 +18,9 @@ import regex from './regex';
 
 import '../login.scss';
 
-import SelectOptionMonth from '@components/selects/selectOptionMonth';
-import SelectOptionGender from '@components/selects/selectOptionGender';
+import SelectOptionMonth from '@components/selects/SelectOptionMonth';
+import SelectOptionGender from '@components/selects/SelectOptionGender';
+import SelectOptionPhone from '@components/selects/SelectOptionPhone';
 
 const SignUpOnchangeRegex = () => {
   /*    if (!values.username) {
@@ -40,6 +41,8 @@ const SignUpOnchangeRegex = () => {
   //
   const pwRef = useRef<HTMLInputElement>(null);
   const confirmPwRef = useRef<HTMLInputElement>(null);
+  const phoneMidRef = useRef<HTMLInputElement>(null);
+  const phoneEndRef = useRef<HTMLInputElement>(null);
 
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
@@ -56,6 +59,8 @@ const SignUpOnchangeRegex = () => {
     birYear: '',
     birDay: '',
     email: '',
+    phoneMid: '',
+    phoneEnd: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -99,6 +104,8 @@ const SignUpOnchangeRegex = () => {
 
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
   const pwValue = String(values.password);
+  const phoneMidValue = String(values.phoneMid);
+  const phoneEndValue = String(values.phoneEnd);
   useEffect(() => {
     //기존 공통사용으로 여러개였던 type을 regex test하기 위해선 String으로 바꿔줘야해서 형변환시킴
     const idValue = String(values.id);
@@ -285,10 +292,55 @@ const SignUpOnchangeRegex = () => {
             onChange={handleChangeTarget}
             regexCheck={regex.email}
             maxValue={100}
-            successText={'성공'}
+            successText={''}
             errorText={'이메일 주소를 다시 확인해주세요.'}
             helperTextClassName='helperText'
           />
+
+          <div className='phoneContainer'>
+            <p>휴대전화</p>
+            <div className='phoneWrap'>
+              <SelectOptionPhone />
+              <p>-</p>
+              <InputSingUpOnchangeRegex
+                title=''
+                type='text'
+                name='phoneMid'
+                value={values?.phoneMid}
+                placeholder=''
+                ref={phoneMidRef}
+                className='input'
+                labelClassName='label'
+                onChange={handleChangeTarget}
+                regexCheck={regex.phoneMid}
+                maxValue={4}
+                successText={''}
+                /*   errorText={'이메일 주소를 다시 확인해주세요.'}
+              helperTextClassName='helperText' */
+              />
+              <p>-</p>
+              <InputSingUpOnchangeRegex
+                title=''
+                type='text'
+                name='phoneEnd'
+                value={values?.phoneEnd}
+                placeholder=''
+                ref={phoneEndRef}
+                className='input'
+                labelClassName='label'
+                onChange={handleChangeTarget}
+                regexCheck={regex.phoneEnd}
+                maxValue={4}
+                successText={''}
+                /*   errorText={'이메일 주소를 다시 확인해주세요.'}
+              helperTextClassName='helperText' */
+              />
+            </div>
+            {/*  ing 진행중
+              {regex.phoneMid.test(phoneMidValue) && regex.phoneEnd.test(phoneEndValue)
+              <p className='helperText'>휴대폰 번호를 확인해주세요.</p>
+            } */}
+          </div>
 
           {/*   <InputOnchangeRegex
             title='email'

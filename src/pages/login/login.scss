@@ -1,5 +1,5 @@
 .formContainer {
-  width: 600px;
+  width: 500px;
   margin: 0 auto;
 
   .formTitle {
@@ -203,5 +203,12 @@
     &:focus-visible {
       outline: none;
     }
+  }
+
+  //휴대전화
+  .phoneWrap {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 }

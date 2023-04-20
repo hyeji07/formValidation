@@ -51,6 +51,19 @@ const birYear = /^(?!0000)[0-9]{4}$/;
 const birDay = /^(?!00)[0-9]{2}$/; //00이 연속으로 오지 않고, 숫자 2자리 허용
 //? : 전방탐색 + !:포함되지 않을 때 일치
 
-const regex = { nickname, email, password, id, userName, birYear, birDay };
+const phoneMid = /^[0-9]{3,4}$/;
+const phoneEnd = /^[0-9]{4}$/;
+
+const regex = {
+  nickname,
+  email,
+  password,
+  id,
+  userName,
+  birYear,
+  birDay,
+  phoneMid,
+  phoneEnd,
+};
 
 export default regex;
