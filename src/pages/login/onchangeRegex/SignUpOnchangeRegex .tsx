@@ -50,12 +50,12 @@ const SignUpOnchangeRegex = () => {
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
     id: '',
-    email: '',
     password: '',
     passwordReconfirm: '',
     userName: '',
     birYear: '',
     birDay: '',
+    email: '',
   });
 
   //현재 Target Input Value 실시간 감지 (target e 보내기 위해)
@@ -272,6 +272,23 @@ const SignUpOnchangeRegex = () => {
             <p>성별</p>
             <SelectOptionGender />
           </div>
+
+          <InputSingUpOnchangeRegex
+            title='본인 확인 이메일(선택)'
+            type='text'
+            name='email'
+            value={values?.email}
+            placeholder='선택입력'
+            ref={emailInput}
+            className='input'
+            labelClassName='label'
+            onChange={handleChangeTarget}
+            regexCheck={regex.email}
+            maxValue={100}
+            successText={'성공'}
+            errorText={'이메일 주소를 다시 확인해주세요.'}
+            helperTextClassName='helperText'
+          />
 
           {/*   <InputOnchangeRegex
             title='email'
