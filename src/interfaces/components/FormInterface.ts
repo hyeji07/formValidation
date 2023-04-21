@@ -24,7 +24,7 @@ export namespace FormInterface {
     maxValue?: number;
     regexCheck?: RegExp; //정규식은 RegExp 타입
     defaultText?: string;
-    successText: string;
+    successText?: string;
     errorText?: string;
     helperTextClassName?: string;
     onInput?: any;

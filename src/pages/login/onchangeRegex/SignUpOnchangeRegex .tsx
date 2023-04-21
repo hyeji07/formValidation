@@ -19,8 +19,22 @@ import regex from './regex';
 import '../login.scss';
 
 import SelectOptionMonth from '@components/selects/SelectOptionMonth';
-import SelectOptionGender from '@components/selects/SelectOptionGender';
-import SelectOptionPhone from '@components/selects/SelectOptionPhone';
+
+import SelectOptionClassic from '@components/selects/SelectOptionClassic';
+import { selectGenderLists } from '@components/selects/selectOption';
+import { selectPhoneLists } from '@components/selects/selectOption';
+
+interface SelectOptionsInterface {
+  birMonth?: string;
+  gender?: string;
+  phoneFirst?: string;
+}
+
+interface HelperTextInterface {
+  birTotal?: string;
+  gender?: string;
+  phone?: string;
+}
 
 const SignUpOnchangeRegex = () => {
   /*    if (!values.username) {
@@ -47,8 +61,11 @@ const SignUpOnchangeRegex = () => {
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
   const [confirm, setConfirm] = useState(false);
-  //errText 변경
-  const [otherErrText, setOtherErrText] = useState(false);
+
+  //selectOption State
+  const [selected, setSelected] = useState<SelectOptionsInterface>({});
+
+  const [helperText, setHelperText] = useState<HelperTextInterface>({});
 
   //Input Value 실시간 반영
   const { values, handleChange } = useForm({
@@ -102,22 +119,119 @@ const SignUpOnchangeRegex = () => {
     } */
   };
 
+  //selectOption State onChange
+  const selectHandleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelected({
+      ...selected,
+      [e.target.id]: e.target.value,
+    });
+  };
+
+  /* const totalValues = {
+    selected,
+    values,
+  }; */
+
+  //총 생년월일
+  const birTotal = `${values.birYear}${selected.birMonth}${values.birDay}`;
+
+  //총 휴대전화
+  const phoneTotal = `${selected.phoneFirst}${values.phoneMid}${values.phoneEnd}`;
+
+  useEffect(() => {
+    console.log(selected);
+    console.log(values);
+
+    console.log(birTotal);
+
+    //생년월일 helperText
+    const birYearValue = String(values.birYear);
+    const birDayValue = String(values.birDay);
+
+    if (values.birYear && values.birDay) {
+      if (!regex.birYear.test(birYearValue)) {
+        setHelperText({
+          ...helperText,
+          birTotal: '태어난 년도 4자리를 정확하게 입력하세요.',
+        });
+      } else if (!regex.birDay.test(birDayValue)) {
+        setHelperText({
+          ...helperText,
+          birTotal: '태어난 일(날짜) 2자리를 정확하게 입력하세요.',
+        });
+      } else if (selected.birMonth === '') {
+        setHelperText({
+          ...helperText,
+          birTotal: '태어난 월을 선택하세요.',
+        });
+      } else if (!regex.birTotal.test(birTotal)) {
+        setHelperText({
+          ...helperText,
+          birTotal: '생년월일을 다시 확인해주세요.',
+        });
+      } else if (regex.birTotal.test(birTotal)) {
+        setHelperText({
+          ...helperText,
+          birTotal: '',
+        });
+      }
+    }
+
+    //성별 helperText
+    if (!selected.gender) {
+      setHelperText({
+        ...helperText,
+        gender: '필수 정보입니다.',
+      });
+    }
+
+    //휴대전화 total
+    if (!selected.phoneFirst || !values.phoneMid || !values.phoneEnd)
+      if (!regex.phoneTotal.test(phoneTotal)) {
+        setHelperText({
+          ...helperText,
+          phone: '필수 정보입니다.',
+        });
+      }
+    if (regex.phoneTotal.test(phoneTotal)) {
+      setHelperText({
+        ...helperText,
+        phone: '성공',
+      });
+    }
+
+    console.log(helperText);
+  }, [selected, values]);
+
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
-  const pwValue = String(values.password);
-  const phoneMidValue = String(values.phoneMid);
-  const phoneEndValue = String(values.phoneEnd);
   useEffect(() => {
     //기존 공통사용으로 여러개였던 type을 regex test하기 위해선 String으로 바꿔줘야해서 형변환시킴
     const idValue = String(values.id);
     const pwValue = String(values.password);
+
+    const userNameValue = String(values.userName);
+    /*     const birYearValue = String(values.birYear);
+    const birDayValue = String(values.birDay); */
     const emailValue = String(values.email);
+    const phoneMidValue = String(values.phoneMid);
+    const phoneEndValue = String(values.phoneEnd);
+
+    console.log(phoneTotal);
 
     //&&는 차례대로 순서 작성해야 모든것이 적용되는것을 참고하기.
     if (
       regex.id.test(idValue) &&
       /*  regex.email.test(emailValue) && */
       regex.password.test(pwValue) &&
-      confirm
+      confirm &&
+      regex.userName.test(userNameValue) &&
+      /* regex.birYear.test(birYearValue) &&
+      regex.birDay.test(birDayValue) && */
+      regex.birTotal.test(birTotal) &&
+      regex.email.test(emailValue) &&
+      /* regex.phoneMid.test(phoneMidValue) &&
+      regex.phoneEnd.test(phoneEndValue) */
+      regex.phoneTotal.test(phoneTotal)
     ) {
       setIsOn(true);
     } else {
@@ -249,13 +363,12 @@ const SignUpOnchangeRegex = () => {
                 labelClassName='label'
                 className='input'
                 maxValue={4}
-                regexCheck={regex.birYear}
-                successText={''}
-                errorText={'태어난 년도 4자리를 정확하게 입력하세요.'}
+                /*  successText={''}
+                errorText={'태어난 년도 4자리를 정확하게 입력하세요.'} */
                 helperTextClassName='helperText'
                 /*   required={true} */
               />
-              <SelectOptionMonth />
+              <SelectOptionMonth onChange={selectHandleChange} />
               <InputSingUpOnchangeRegex
                 type='text'
                 name='birDay'
@@ -266,18 +379,28 @@ const SignUpOnchangeRegex = () => {
                 labelClassName='label'
                 className='input'
                 maxValue={2}
-                regexCheck={regex.birDay}
-                successText={''}
-                errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'}
+                /*   successText={''}
+                errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'} */
                 helperTextClassName='helperText'
                 /*  required={true} */
               />
             </div>
+
+            {helperText.birTotal && (
+              <p className='helperText'>{helperText.birTotal}</p>
+            )}
           </div>
 
           <div className='selectContainer'>
             <p>성별</p>
-            <SelectOptionGender />
+            <SelectOptionClassic
+              onChange={selectHandleChange}
+              selectId='gender'
+              optionsLists={selectGenderLists}
+            />
+            {helperText.gender && (
+              <p className='helperText'>{helperText.gender}</p>
+            )}
           </div>
 
           <InputSingUpOnchangeRegex
@@ -300,7 +423,11 @@ const SignUpOnchangeRegex = () => {
           <div className='phoneContainer'>
             <p>휴대전화</p>
             <div className='phoneWrap'>
-              <SelectOptionPhone />
+              <SelectOptionClassic
+                onChange={selectHandleChange}
+                selectId='phoneFirst'
+                optionsLists={selectPhoneLists}
+              />
               <p>-</p>
               <InputSingUpOnchangeRegex
                 title=''
@@ -312,7 +439,7 @@ const SignUpOnchangeRegex = () => {
                 className='input'
                 labelClassName='label'
                 onChange={handleChangeTarget}
-                regexCheck={regex.phoneMid}
+                /*   regexCheck={regex.phoneMid} */
                 maxValue={4}
                 successText={''}
                 /*   errorText={'이메일 주소를 다시 확인해주세요.'}
@@ -329,7 +456,7 @@ const SignUpOnchangeRegex = () => {
                 className='input'
                 labelClassName='label'
                 onChange={handleChangeTarget}
-                regexCheck={regex.phoneEnd}
+                /*     regexCheck={regex.phoneEnd} */
                 maxValue={4}
                 successText={''}
                 /*   errorText={'이메일 주소를 다시 확인해주세요.'}
@@ -340,6 +467,9 @@ const SignUpOnchangeRegex = () => {
               {regex.phoneMid.test(phoneMidValue) && regex.phoneEnd.test(phoneEndValue)
               <p className='helperText'>휴대폰 번호를 확인해주세요.</p>
             } */}
+            {helperText.phone && (
+              <p className='helperText'>{helperText.phone}</p>
+            )}
           </div>
 
           {/*   <InputOnchangeRegex
