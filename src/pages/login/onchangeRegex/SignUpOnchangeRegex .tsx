@@ -57,6 +57,7 @@ const SignUpOnchangeRegex = () => {
   const confirmPwRef = useRef<HTMLInputElement>(null);
   const phoneMidRef = useRef<HTMLInputElement>(null);
   const phoneEndRef = useRef<HTMLInputElement>(null);
+  const genderRef = useRef<HTMLSelectElement>(null);
 
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
@@ -177,11 +178,16 @@ const SignUpOnchangeRegex = () => {
       }
     }
 
-    //성별 helperText
-    if (!selected.gender) {
+    //성별 helperText (''로 해야 처음(selected.gender=undefined상테)말고 성별 선택시(selected.gender=value ''인 상태)에 적용됨)
+    if (selected.gender === '') {
       setHelperText((helperText) => ({
         ...helperText,
         gender: '필수 정보입니다.',
+      }));
+    } else if (selected.gender !== '') {
+      setHelperText((helperText) => ({
+        ...helperText,
+        gender: '',
       }));
     }
 
@@ -201,6 +207,7 @@ const SignUpOnchangeRegex = () => {
     }
 
     console.log(helperText);
+    console.log(selected.gender);
   }, [selected, values]);
 
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
