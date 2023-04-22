@@ -148,6 +148,9 @@ const SignUpOnchangeRegex = () => {
     //생년월일 helperText
     const birYearValue = String(values.birYear);
     const birDayValue = String(values.birDay);
+    //휴대전화
+    const phoneMidValue = String(values.phoneMid);
+    const phoneEndValue = String(values.phoneEnd);
 
     if (values.birYear && values.birDay) {
       if (!regex.birYear.test(birYearValue)) {
@@ -192,22 +195,38 @@ const SignUpOnchangeRegex = () => {
     }
 
     //휴대전화 total
-    if (!selected.phoneFirst || !values.phoneMid || !values.phoneEnd)
-      if (!regex.phoneTotal.test(phoneTotal)) {
-        setHelperText((helperText) => ({
-          ...helperText,
-          phone: '필수 정보입니다.',
-        }));
-      }
-    if (regex.phoneTotal.test(phoneTotal)) {
+    if (selected.phoneFirst === undefined) {
       setHelperText((helperText) => ({
         ...helperText,
-        phone: '성공',
+        phone: '',
+      }));
+    } else if (
+      selected.phoneFirst === '' ||
+      values.phoneMid === '' ||
+      values.phoneEnd === ''
+    ) {
+      setHelperText((helperText) => ({
+        ...helperText,
+        phone: '필수 정보입니다.',
+      }));
+    } else if (!regex.phoneTotal.test(phoneTotal)) {
+      setHelperText((helperText) => ({
+        ...helperText,
+        phone: '휴대전화 번호를 확인해주세요.',
+      }));
+    } else if (
+      regex.phoneMid.test(phoneMidValue) &&
+      regex.phoneEnd.test(phoneEndValue) &&
+      regex.phoneTotal.test(phoneTotal)
+    ) {
+      setHelperText((helperText) => ({
+        ...helperText,
+        phone: '',
       }));
     }
 
-    console.log(helperText);
-    console.log(selected.gender);
+    console.log(selected.phoneFirst);
+    // console.log(selected.gender);
   }, [selected, values]);
 
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
@@ -220,8 +239,6 @@ const SignUpOnchangeRegex = () => {
     /*     const birYearValue = String(values.birYear);
     const birDayValue = String(values.birDay); */
     const emailValue = String(values.email);
-    const phoneMidValue = String(values.phoneMid);
-    const phoneEndValue = String(values.phoneEnd);
 
     console.log(phoneTotal);
 
