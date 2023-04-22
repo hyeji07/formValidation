@@ -37,19 +37,7 @@ interface HelperTextInterface {
 }
 
 const SignUpOnchangeRegex = () => {
-  /*    if (!values.username) {
-      alert('아이디를 입력해주세요');
-      idInput.current?.focus();
-    }
-    if (!values.password) {
-      alert('비밀번호를 입력해주세요');
-      passwordInput.current?.focus();
-    } else {
-      alert('로그인에 실패했습니다.');
-    }
-    console.log(e); */
-
-  //여기서 ref는 사용하진 않음
+  //ref는 선택적 사용 가능
   const idInput = useRef<HTMLInputElement>(null);
   const emailInput = useRef<HTMLInputElement>(null);
   //
@@ -57,7 +45,6 @@ const SignUpOnchangeRegex = () => {
   const confirmPwRef = useRef<HTMLInputElement>(null);
   const phoneMidRef = useRef<HTMLInputElement>(null);
   const phoneEndRef = useRef<HTMLInputElement>(null);
-  const genderRef = useRef<HTMLSelectElement>(null);
 
   //submit button 활성화여부
   const [isOn, setIsOn] = useState(false);
@@ -98,26 +85,12 @@ const SignUpOnchangeRegex = () => {
     if (pwInput && confirmpwInput) {
       if (isMatch) {
         setConfirm(true);
-        /*  confirmPwRef.current.classList.remove('suceess'); */
       } else {
         setConfirm(false);
       }
     } else {
       setConfirm(false);
     }
-
-    //
-    /*    if (signUpPwInput.current.value !== reconfirmPwInput.current.value) {
-      setConfirem('err');
-      console.log(confirem);
-      console.log(signUpPwInput.current.value);
-      console.log(reconfirmPwInput.current.value);
-    } else if (signUpPwInput === reconfirmPwInput) {
-      setConfirem('success');
-      console.log(confirem);
-      console.log(signUpPwInput.current.value);
-      console.log(reconfirmPwInput.current.value);
-    } */
   };
 
   //selectOption State onChange
@@ -128,11 +101,6 @@ const SignUpOnchangeRegex = () => {
     });
   };
 
-  /* const totalValues = {
-    selected,
-    values,
-  }; */
-
   //총 생년월일
   const birTotal = `${values.birYear}${selected.birMonth}${values.birDay}`;
 
@@ -140,11 +108,6 @@ const SignUpOnchangeRegex = () => {
   const phoneTotal = `${selected.phoneFirst}${values.phoneMid}${values.phoneEnd}`;
 
   useEffect(() => {
-    console.log(selected);
-    console.log(values);
-
-    console.log(birTotal);
-
     //생년월일 helperText
     const birYearValue = String(values.birYear);
     const birDayValue = String(values.birDay);
@@ -224,9 +187,6 @@ const SignUpOnchangeRegex = () => {
         phone: '',
       }));
     }
-
-    console.log(selected.phoneFirst);
-    // console.log(selected.gender);
   }, [selected, values]);
 
   //regex test를 통과 안된 경우 submit button이 비활성화되도록 설정함. (추후추가 수정하기)
@@ -234,56 +194,39 @@ const SignUpOnchangeRegex = () => {
     //기존 공통사용으로 여러개였던 type을 regex test하기 위해선 String으로 바꿔줘야해서 형변환시킴
     const idValue = String(values.id);
     const pwValue = String(values.password);
-
     const userNameValue = String(values.userName);
-    /*     const birYearValue = String(values.birYear);
-    const birDayValue = String(values.birDay); */
-    const emailValue = String(values.email);
-
-    console.log(phoneTotal);
+    /* const emailValue = String(values.email); */
 
     //&&는 차례대로 순서 작성해야 모든것이 적용되는것을 참고하기.
     if (
       regex.id.test(idValue) &&
-      /*  regex.email.test(emailValue) && */
       regex.password.test(pwValue) &&
       confirm &&
       regex.userName.test(userNameValue) &&
-      /* regex.birYear.test(birYearValue) &&
-      regex.birDay.test(birDayValue) && */
       regex.birTotal.test(birTotal) &&
-      regex.email.test(emailValue) &&
-      /* regex.phoneMid.test(phoneMidValue) &&
-      regex.phoneEnd.test(phoneEndValue) */
+      /* regex.email.test(emailValue) && */
+      selected.gender !== '' &&
       regex.phoneTotal.test(phoneTotal)
     ) {
       setIsOn(true);
     } else {
       setIsOn(false);
     }
-  }, [values]); //디펜더시는 values로 설정해야 input값이 작성중 바뀔때 실시간으로 감지되어 위 코드가 적용된다.
 
-  /*  useEffect(() => {
-    if (values.password === values.passwordReconfirm) {
-      setConfirem('success');
-    } else {
-      setConfirem('err');
+    //조건일치해서 로그인버튼이 활성화됐을 경우 모든 정보를 totalValue에 저장
+    if (isOn === true) {
+      const totalValue = {
+        id: values.id,
+        password: values.password,
+        userName: values.userName,
+        birTotal: birTotal,
+        gender: selected.gender,
+        email: values.email,
+        phoneTotal: phoneTotal,
+      };
+      //console.log(`total:${totalValue.phoneTotal}`);
     }
-  }, [values]); */
-
-  /*  useEffect(() => {
-    //생년월일 errText
-    if (values.birYear || values.birDay) {
-      const NumYear = Number(values.birYear);
-      const NumDay = Number(values.birDay);
-
-      if (NumYear === 0 || NumDay === 0) {
-        setOtherErrText(true);
-      } else {
-        setOtherErrText(false);
-      }
-    }
-  }, [values, otherErrText]); */
+  }, [values, isOn, confirm, selected]); //디펜더시는 values로 설정해야 input값이 작성중 바뀔때 실시간으로 감지되어 위 코드가 적용된다.
 
   return (
     <div className='formContainer'>
@@ -373,7 +316,6 @@ const SignUpOnchangeRegex = () => {
             />
           </div>
 
-          {/* ing */}
           <div>
             <p>생년월일</p>
             <div className='birContainer'>
@@ -382,15 +324,11 @@ const SignUpOnchangeRegex = () => {
                 name='birYear'
                 value={values?.birYear}
                 placeholder='년(자)'
-                /* ref={userNameRef} */
                 onChange={handleChangeTarget}
                 labelClassName='label'
                 className='input'
                 maxValue={4}
-                /*  successText={''}
-                errorText={'태어난 년도 4자리를 정확하게 입력하세요.'} */
                 helperTextClassName='helperText'
-                /*   required={true} */
               />
               <SelectOptionMonth onChange={selectHandleChange} />
               <InputSingUpOnchangeRegex
@@ -398,15 +336,11 @@ const SignUpOnchangeRegex = () => {
                 name='birDay'
                 value={values?.birDay}
                 placeholder='일'
-                /* ref={userNameRef} */
                 onChange={handleChangeTarget}
                 labelClassName='label'
                 className='input'
                 maxValue={2}
-                /*   successText={''}
-                errorText={'태어난 일(날짜) 2자리를 정확하게 입력하세요.'} */
                 helperTextClassName='helperText'
-                /*  required={true} */
               />
             </div>
 
@@ -463,11 +397,8 @@ const SignUpOnchangeRegex = () => {
                 className='input'
                 labelClassName='label'
                 onChange={handleChangeTarget}
-                /*   regexCheck={regex.phoneMid} */
                 maxValue={4}
                 successText={''}
-                /*   errorText={'이메일 주소를 다시 확인해주세요.'}
-              helperTextClassName='helperText' */
               />
               <p>-</p>
               <InputSingUpOnchangeRegex
@@ -480,57 +411,14 @@ const SignUpOnchangeRegex = () => {
                 className='input'
                 labelClassName='label'
                 onChange={handleChangeTarget}
-                /*     regexCheck={regex.phoneEnd} */
                 maxValue={4}
                 successText={''}
-                /*   errorText={'이메일 주소를 다시 확인해주세요.'}
-              helperTextClassName='helperText' */
               />
             </div>
-            {/*  ing 진행중
-              {regex.phoneMid.test(phoneMidValue) && regex.phoneEnd.test(phoneEndValue)
-              <p className='helperText'>휴대폰 번호를 확인해주세요.</p>
-            } */}
             {helperText.phone && (
               <p className='helperText'>{helperText.phone}</p>
             )}
           </div>
-
-          {/*   <InputOnchangeRegex
-            title='email'
-            type='input'
-            name='email'
-            value={values?.email}
-            placeholder='이메일을 입력하세요.'
-            ref={emailInput}
-            onChange={handleChangeTarget}
-            labelClassName='label'
-            className='input'
-            regexCheck={regex.email}
-            defaultText={'이메일을 입력하세요.'}
-            successText={'성공'}
-            errorText={'이메일을 정확하게 작성했는지 확인해주세요.'}
-            helperTextClassName='helperText'
-          />
-          <InputOnchangeRegex
-            title='password'
-            type='password'
-            name='password'
-            value={values?.password}
-            placeholder='비밀번호를 입력하세요.'
-            ref={passwordInput}
-            onChange={handleChangeTarget}
-            labelClassName='label'
-            className='input'
-            maxValue={16}
-            regexCheck={regex.password}
-            defaultText={'8~16자 영문 대 소문자, 숫자, 특수문자를 사용하세요.'}
-            successText={'성공'}
-            errorText={
-              '8~16자 영문 대 소문자, 숫자, 특수문자를 사용했는지 확인해주세요.'
-            }
-            helperTextClassName='helperText'
-          /> */}
 
           {/* regex test 통과 안된 경우 submit button 비활성화되도록 설정*/}
           <div className={isOn === false ? 'submitBtn Err' : 'submitBtn'}>
