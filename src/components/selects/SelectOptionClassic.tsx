@@ -14,7 +14,9 @@ export default function SelectOptionClassic({
         <option value='none'>선택안함</option> */}
 
         {optionsLists.map((item, i) => (
-          <option value={item.value}>{item.content}</option>
+          <option value={item.value} key={item.value}>
+            {item.content}
+          </option>
         ))}
       </select>
     </span>

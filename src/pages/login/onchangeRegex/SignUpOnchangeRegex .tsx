@@ -150,54 +150,54 @@ const SignUpOnchangeRegex = () => {
 
     if (values.birYear && values.birDay) {
       if (!regex.birYear.test(birYearValue)) {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           birTotal: '태어난 년도 4자리를 정확하게 입력하세요.',
-        });
+        }));
       } else if (!regex.birDay.test(birDayValue)) {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           birTotal: '태어난 일(날짜) 2자리를 정확하게 입력하세요.',
-        });
+        }));
       } else if (selected.birMonth === '') {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           birTotal: '태어난 월을 선택하세요.',
-        });
+        }));
       } else if (!regex.birTotal.test(birTotal)) {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           birTotal: '생년월일을 다시 확인해주세요.',
-        });
+        }));
       } else if (regex.birTotal.test(birTotal)) {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           birTotal: '',
-        });
+        }));
       }
     }
 
     //성별 helperText
     if (!selected.gender) {
-      setHelperText({
+      setHelperText((helperText) => ({
         ...helperText,
         gender: '필수 정보입니다.',
-      });
+      }));
     }
 
     //휴대전화 total
     if (!selected.phoneFirst || !values.phoneMid || !values.phoneEnd)
       if (!regex.phoneTotal.test(phoneTotal)) {
-        setHelperText({
+        setHelperText((helperText) => ({
           ...helperText,
           phone: '필수 정보입니다.',
-        });
+        }));
       }
     if (regex.phoneTotal.test(phoneTotal)) {
-      setHelperText({
+      setHelperText((helperText) => ({
         ...helperText,
         phone: '성공',
-      });
+      }));
     }
 
     console.log(helperText);
