@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
 import Input from '@components/input/Input';
+import HomeLinkBtn from '@components/btns/HomeLinkBtn';
 
 import '../login.scss';
 
@@ -65,6 +66,8 @@ const Login = () => {
       <p className='signUpTxt'>
         <Link to='/sign_up'>회원가입</Link>
       </p>
+
+      <HomeLinkBtn />
     </div>
   );
 };

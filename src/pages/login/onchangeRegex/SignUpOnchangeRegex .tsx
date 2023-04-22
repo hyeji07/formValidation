@@ -8,21 +8,18 @@
 ///naver 회원가입 참고로 구현중
 
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
 
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
-
 import InputSingUpOnchangeRegex from '@components/input/InputSingUpOnchangeRegex';
 import regex from './regex';
-
-import '../login.scss';
-
 import SelectOptionMonth from '@components/selects/SelectOptionMonth';
-
 import SelectOptionClassic from '@components/selects/SelectOptionClassic';
 import { selectGenderLists } from '@components/selects/selectOption';
 import { selectPhoneLists } from '@components/selects/selectOption';
+import HomeLinkBtn from '@components/btns/HomeLinkBtn';
+
+import '../login.scss';
 
 interface SelectOptionsInterface {
   birMonth?: string;
@@ -424,13 +421,15 @@ const SignUpOnchangeRegex = () => {
           {/* regex test 통과 안된 경우 submit button 비활성화되도록 설정*/}
           <div className={isOn === false ? 'submitBtn Err' : 'submitBtn'}>
             <SubmitBtn
-              text='로그인'
+              text='회원가입'
               className='blueSubmitBtn'
               disabled={!isOn}
             />
           </div>
         </form>
       </div>
+
+      <HomeLinkBtn />
     </div>
   );
 };

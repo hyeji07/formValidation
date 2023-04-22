@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useForm } from '@hooks/useForm';
 import Input from '@components/input/Input';
 import SubmitBtn from '@components/btns/SubmitBtn';
+import HomeLinkBtn from '@components/btns/HomeLinkBtn';
 /* import { doSignUp } from '@services/LoginService'; */
 
 import './login.scss';
@@ -57,9 +58,9 @@ const SignUp = () => {
   };
 
   return (
-    <div className='loginContainer'>
-      <h3 className='loginTitle'>회원가입</h3>
-      <div className='loginBox'>
+    <div className='formContainer'>
+      <h3 className='formTitle'>회원가입</h3>
+      <div className='formWrap'>
         <form onSubmit={doSignup}>
           <Input
             title='name'
@@ -69,7 +70,7 @@ const SignUp = () => {
             onChange={handleChange}
             placeholder='이름을 입력하세요.'
             ref={nameSignInUpInput}
-            className='loginInput'
+            className='input'
           />
           <Input
             title='id'
@@ -79,7 +80,7 @@ const SignUp = () => {
             onChange={handleChange}
             placeholder='아이디를 입력하세요.'
             ref={idSignInUpInput}
-            className='loginInput'
+            className='input'
           />
           <Input
             title='password'
@@ -89,7 +90,7 @@ const SignUp = () => {
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordSignInUpInput}
-            className='loginInput'
+            className='input'
           />
           <Input
             title='password 재확인'
@@ -99,13 +100,15 @@ const SignUp = () => {
             onChange={handleChange}
             placeholder='비밀번호를 입력하세요.'
             ref={passwordCheckSignInUpInput}
-            className='loginInput'
+            className='input'
           />
-          <div className='loginBtn'>
+          <div className='submitBtn'>
             <SubmitBtn text='가입하기' className='blueSubmitBtn' />
           </div>
         </form>
       </div>
+
+      <HomeLinkBtn />
     </div>
   );
 };

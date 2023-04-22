@@ -10,9 +10,9 @@ import { Link } from 'react-router-dom';
 
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
-
 import InputOnchangeRegex from '@components/input/InputOnchangeRegex';
 import regex from './regex';
+import HomeLinkBtn from '@components/btns/HomeLinkBtn';
 
 import '../login.scss';
 
@@ -142,8 +142,10 @@ const LoginOnchangeRegex = () => {
         </form>
       </div>
       <p className='signUpTxt'>
-        <Link to='/sign_up'>회원가입</Link>
+        <Link to='/sign_up_regex'>회원가입</Link>
       </p>
+
+      <HomeLinkBtn />
     </div>
   );
 };

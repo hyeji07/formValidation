@@ -1,7 +1,7 @@
 export namespace BtnInterface {
   export interface ClickBtnInterface {
     text: string;
-    onClick: () => void;
+    onClick?: () => void;
     className?: string;
   }
 
