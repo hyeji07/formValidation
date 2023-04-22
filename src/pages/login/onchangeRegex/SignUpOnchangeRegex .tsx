@@ -212,21 +212,22 @@ const SignUpOnchangeRegex = () => {
     } else {
       setIsOn(false);
     }
-
-    //조건일치해서 로그인버튼이 활성화됐을 경우 모든 정보를 totalValue에 저장
-    if (isOn === true) {
-      const totalValue = {
-        id: values.id,
-        password: values.password,
-        userName: values.userName,
-        birTotal: birTotal,
-        gender: selected.gender,
-        email: values.email,
-        phoneTotal: phoneTotal,
-      };
-      //console.log(`total:${totalValue.phoneTotal}`);
-    }
   }, [values, isOn, confirm, selected]); //디펜더시는 values로 설정해야 input값이 작성중 바뀔때 실시간으로 감지되어 위 코드가 적용된다.
+
+  //조건일치해서 로그인버튼이 활성화됐을 경우 모든 정보를 totalValue에 저장
+  if (isOn === true) {
+    const totalValue = {
+      id: values.id,
+      password: values.password,
+      userName: values.userName,
+      birTotal: birTotal,
+      gender: selected.gender,
+      email: values.email,
+      phoneTotal: phoneTotal,
+    };
+
+    console.log(totalValue);
+  }
 
   return (
     <div className='formContainer'>

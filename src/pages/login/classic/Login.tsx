@@ -28,10 +28,7 @@ const Login = () => {
     if (!values?.password) {
       alert('비밀번호를 입력해주세요');
       passwordInput.current?.focus();
-    } else {
-      alert('로그인에 실패했습니다.');
     }
-
     console.log(values);
   };
 
