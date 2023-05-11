@@ -11,7 +11,7 @@ import { useEffect, useRef, useState } from 'react';
 
 import { useForm } from '@hooks/useForm';
 import SubmitBtn from '@components/btns/SubmitBtn';
-import InputSignUpOnchangeRegex from '@components/input/InputSignUpOnchangeRegex';
+import InputSignUpSubmitRegex from '@components/input/InputSignUpSubmitRegex';
 import regex from './regex';
 import SelectOptionMonth from '@components/selects/SelectOptionMonth';
 import SelectOptionClassic from '@components/selects/SelectOptionClassic';
@@ -33,7 +33,7 @@ interface HelperTextInterface {
   phone?: string;
 }
 
-const SignUpOnchangeRegex = () => {
+const SignUpSubmitRegex = () => {
   //ref는 선택적 사용 가능
   const idInput = useRef<HTMLInputElement>(null);
   const emailInput = useRef<HTMLInputElement>(null);
@@ -231,7 +231,7 @@ const SignUpOnchangeRegex = () => {
       <h3 className='formTitle'> </h3>
       <div className='formBox'>
         <form /* onSubmit={handleOnChange} */ className='signUpForm'>
-          <InputSignUpOnchangeRegex
+          <InputSignUpSubmitRegex
             title='아이디'
             type='text'
             name='id'
@@ -252,7 +252,7 @@ const SignUpOnchangeRegex = () => {
           />
 
           <div className='pwContainer'>
-            <InputSignUpOnchangeRegex
+            <InputSignUpSubmitRegex
               title='비밀번호'
               type='password'
               name='password'
@@ -272,7 +272,7 @@ const SignUpOnchangeRegex = () => {
           </div>
 
           <div className='pwContainer'>
-            <InputSignUpOnchangeRegex
+            <InputSignUpSubmitRegex
               title='비밀번호 재확인'
               type='password'
               name='passwordReconfirm'
@@ -293,7 +293,7 @@ const SignUpOnchangeRegex = () => {
           </div>
 
           <div className='pwContainer'>
-            <InputSignUpOnchangeRegex
+            <InputSignUpSubmitRegex
               title='이름'
               type='text'
               name='userName'
@@ -317,7 +317,7 @@ const SignUpOnchangeRegex = () => {
           <div>
             <p>생년월일</p>
             <div className='birContainer'>
-              <InputSignUpOnchangeRegex
+              <InputSignUpSubmitRegex
                 type='text'
                 name='birYear'
                 value={values?.birYear}
@@ -329,7 +329,7 @@ const SignUpOnchangeRegex = () => {
                 helperTextClassName='helperText'
               />
               <SelectOptionMonth onChange={selectHandleChange} />
-              <InputSignUpOnchangeRegex
+              <InputSignUpSubmitRegex
                 type='text'
                 name='birDay'
                 value={values?.birDay}
@@ -359,7 +359,7 @@ const SignUpOnchangeRegex = () => {
             )}
           </div>
 
-          <InputSignUpOnchangeRegex
+          <InputSignUpSubmitRegex
             title='본인 확인 이메일(선택)'
             type='text'
             name='email'
@@ -385,7 +385,7 @@ const SignUpOnchangeRegex = () => {
                 optionsLists={selectPhoneLists}
               />
               <p>-</p>
-              <InputSignUpOnchangeRegex
+              <InputSignUpSubmitRegex
                 title=''
                 type='text'
                 name='phoneMid'
@@ -399,7 +399,7 @@ const SignUpOnchangeRegex = () => {
                 successText={''}
               />
               <p>-</p>
-              <InputSignUpOnchangeRegex
+              <InputSignUpSubmitRegex
                 title=''
                 type='text'
                 name='phoneEnd'
@@ -434,4 +434,4 @@ const SignUpOnchangeRegex = () => {
   );
 };
 
-export default SignUpOnchangeRegex;
+export default SignUpSubmitRegex;

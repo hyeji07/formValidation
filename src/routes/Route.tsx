@@ -6,6 +6,7 @@ import '@styles/global.scss';
 import Login from '@pages/login/classic/Login';
 import LoginOnchangeRegex from '@pages/login/onchangeRegex/LoginOnchangeRegex';
 import SignUpOnchangeRegex from '@pages/login/onchangeRegex/SignUpOnchangeRegex ';
+import SignUpSubmitRegex from '@pages/login/submit/SignUpSubmitRegex';
 
 export default function AppRoute(): JSX.Element {
   return (
@@ -15,6 +16,7 @@ export default function AppRoute(): JSX.Element {
       <Route path='/login' element={<Login />} />
       <Route path='/login_regex' element={<LoginOnchangeRegex />} />
       <Route path='/sign_up_regex' element={<SignUpOnchangeRegex />} />
+      <Route path='/sign_up_submit_regex' element={<SignUpSubmitRegex />} />
     </Routes>
   );
 }
