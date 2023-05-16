@@ -25,7 +25,6 @@ export default forwardRef(function InputSignUpSubmitRegex(
     helperTextClassName,
     required,
     confirm,
-    onBlur,
   }: FormInterface.InputBlurRegexInterface,
   ref?: React.ForwardedRef<HTMLInputElement>
 ) {
@@ -130,12 +129,7 @@ export default forwardRef(function InputSignUpSubmitRegex(
 
       {/* 비밀번호 재확인 자물쇠 img */}
       {name === 'passwordReconfirm' && (
-        <p
-          className={
-            'confirm' +
-            (isError === 'success' && confirm ? 'Success confirm' : '')
-          }
-        ></p>
+        <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
       )}
     </label>
   );

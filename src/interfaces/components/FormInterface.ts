@@ -52,7 +52,6 @@ export namespace FormInterface {
     onInput?: any;
     required?: boolean;
     confirm?: boolean;
-    onBlur?: () => void;
   }
 
   export interface TextAreaInterface {
