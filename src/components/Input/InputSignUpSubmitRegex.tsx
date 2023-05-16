@@ -25,7 +25,8 @@ export default forwardRef(function InputSignUpSubmitRegex(
     helperTextClassName,
     required,
     confirm,
-  }: FormInterface.InputRegexInterface,
+    onBlur,
+  }: FormInterface.InputBlurRegexInterface,
   ref?: React.ForwardedRef<HTMLInputElement>
 ) {
   const [isError, setIsError] = useState(''); //err 감지
@@ -38,6 +39,7 @@ export default forwardRef(function InputSignUpSubmitRegex(
   ) => {
     //input 값 변경 실시간 감지해주는 hook 받아오기
     onChange(e);
+    /* ******** */
 
     /*  console.log(e.target.value); */
 
@@ -46,7 +48,10 @@ export default forwardRef(function InputSignUpSubmitRegex(
     if (maxValue && maxValue < e.target.value.length) {
       e.target.value = e.target.value.slice(0, maxValue);
     }
+  };
 
+  //focus되었을때 필수정보 value값이 비어있는 경우
+  const handleInputBlur = (e: React.ChangeEvent<HTMLInputElement>) => {
     //필수정보가 공백일 경우
     if (e.target.value === '' && required === true) {
       setIsError('requiredErr');
@@ -64,15 +69,6 @@ export default forwardRef(function InputSignUpSubmitRegex(
         return setHelperText(errorText);
       }
     } //* test()메소드: 인수로 전달된 문자열에 특정 패턴과 일치하는 문자열이 있는지를 검색하여, 그 결과를 불리언 값으로 반환함.
-  };
-
-  //focus되었을때 필수정보 value값이 비어있는 경우
-  const handleOnfocus = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //필수정보가 공백일 경우
-    if (e.target.value === '' && required === true) {
-      setIsError('requiredErr');
-      return setHelperText('필수 정보입니다.');
-    }
   };
 
   //비밀번호 재확인 (useEffect를 사용해 value값,confirm이 바뀔때 helperText가 재랜더링되도록 해야함)
@@ -120,7 +116,7 @@ export default forwardRef(function InputSignUpSubmitRegex(
         className={className}
         maxLength={maxValue} //글자 수 제한
         onInput={handleChangeRegex} //글자 수 제한
-        onFocus={handleOnfocus}
+        onBlur={handleInputBlur}
       />
 
       {helperText && <p className='helperText'>{helperText}</p>}
@@ -134,7 +130,12 @@ export default forwardRef(function InputSignUpSubmitRegex(
 
       {/* 비밀번호 재확인 자물쇠 img */}
       {name === 'passwordReconfirm' && (
-        <p className={'confirm' + (confirm ? 'Success confirm' : '')}></p>
+        <p
+          className={
+            'confirm' +
+            (isError === 'success' && confirm ? 'Success confirm' : '')
+          }
+        ></p>
       )}
     </label>
   );

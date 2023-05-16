@@ -32,6 +32,29 @@ export namespace FormInterface {
     confirm?: boolean;
   }
 
+  //InputSignUpSubmitRegex 의 경우
+  export interface InputBlurRegexInterface {
+    title?: string;
+    type: string;
+    name: string;
+    value: string | number | undefined;
+    placeholder: string;
+    InputTitle?: string;
+    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    labelClassName: string;
+    className?: string;
+    maxValue?: number;
+    regexCheck?: RegExp; //정규식은 RegExp 타입
+    defaultText?: string;
+    successText?: string;
+    errorText?: string;
+    helperTextClassName?: string;
+    onInput?: any;
+    required?: boolean;
+    confirm?: boolean;
+    onBlur?: () => void;
+  }
+
   export interface TextAreaInterface {
     InputTitle: string;
     labelClassName?: string;
